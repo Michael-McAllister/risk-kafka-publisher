@@ -1,5 +1,8 @@
 package hello;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -15,6 +18,9 @@ import java.util.concurrent.TimeoutException;
  */
 public class RunnableProducer {
 
+    private static ObjectMapper objectMapper = new ObjectMapper()
+            .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
     public static void main(String[] args) {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -24,22 +30,17 @@ public class RunnableProducer {
         //props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, CustomPartitioner.class.getName());
 
         org.apache.kafka.clients.producer.KafkaProducer<String, String> producer = new org.apache.kafka.clients.producer.KafkaProducer<String, String>(props);
-        for (int i = 0; i < 100; i++)
+        while(true)
             try {
                 RecordMetadata result = producer.send(new ProducerRecord<String, String>(
-                        KafkaProducer.TOPIC_NAME, Integer.toString(i)))
+                        KafkaProducer.TOPIC_NAME, objectMapper.writeValueAsString(RiskMessage.RANDOM_RISK_NOTIFICATION())))
                         .get(60, TimeUnit.SECONDS);
                 System.out.println(""+result.partition()+result.offset());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (TimeoutException e) {
+                Thread.sleep(1);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-
-        producer.close();
     }
 
 }
