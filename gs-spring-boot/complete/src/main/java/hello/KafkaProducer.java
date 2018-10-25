@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,12 +28,13 @@ public class KafkaProducer implements Runnable{
         while (true) {
             try {
                 Thread.sleep(sleepTime);
-                sendMessage(objectMapper.writeValueAsString(RiskMessage.RANDOM_RISK_NOTIFICATION()));
+              //  sendMessage(objectMapper.writeValueAsString(RiskMessage.RANDOM_RISK_NOTIFICATION()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+/*
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -46,6 +46,7 @@ public class KafkaProducer implements Runnable{
     public void setKafkaTemplate(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
+*/
 
 }
 
