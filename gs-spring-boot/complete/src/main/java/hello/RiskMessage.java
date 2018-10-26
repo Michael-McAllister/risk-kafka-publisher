@@ -13,7 +13,7 @@ public class RiskMessage implements Serializable{
 
     private String tradeRef;
     private LocalDate tradeDate;
-    private LocalDate businessDate;
+    private String businessDate;
     private BigDecimal delta;
     private String riskType;
     private String firmAccount;
@@ -24,7 +24,7 @@ public class RiskMessage implements Serializable{
     private String jobName;
     private LocalDateTime timestamp;
 
-    public RiskMessage(String tradeRef, LocalDate tradeDate, LocalDate businessDate, BigDecimal delta, String riskType, String firmAccount, String region, String party, String cpty, String csa, String jobName) {
+    public RiskMessage(String tradeRef, LocalDate tradeDate, String businessDate, BigDecimal delta, String riskType, String firmAccount, String region, String party, String cpty, String csa, String jobName) {
         this.tradeRef = tradeRef;
         this.tradeDate = tradeDate;
         this.businessDate = businessDate;
@@ -39,11 +39,11 @@ public class RiskMessage implements Serializable{
         this.timestamp = LocalDateTime.now();
     }
 
-    public static RiskMessage RANDOM_RISK_NOTIFICATION() {
+    public static RiskMessage RANDOM_RISK_NOTIFICATION(String businessDate, String riskType) {
         return new RiskMessage(UUID.randomUUID().toString(),
-                LocalDate.now(), LocalDate.now(),
+                LocalDate.now(), businessDate,
                 BigDecimal.valueOf(((int)Math.random() * 10 + 1) * 1000000),
-                "sod", "firmAccount",
+                riskType, "firmAccount",
                 "region"+(int)(Math.random()*10), "party", "cpty", "csa",
                 "jobName"+(int)(Math.random()*10)
                 );
@@ -137,11 +137,11 @@ public class RiskMessage implements Serializable{
         this.timestamp = timestamp;
     }
 
-    public LocalDate getBusinessDate() {
+    public String getBusinessDate() {
         return businessDate;
     }
 
-    public void setBusinessDate(LocalDate businessDate) {
+    public void setBusinessDate(String businessDate) {
         this.businessDate = businessDate;
     }
 }

@@ -34,19 +34,6 @@ public class KafkaProducer implements Runnable{
             }
         }
     }
-/*
-
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
-
-    private void sendMessage(String msg) {
-        kafkaTemplate.send(TOPIC_NAME, msg);
-    }
-
-    public void setKafkaTemplate(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
-*/
 
 }
 

@@ -22,7 +22,7 @@ public class RiskMessageTest {
         objectMapper.setDateFormat(
                 new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
         System.out.println(objectMapper.writeValueAsString(
-                RiskMessage.RANDOM_RISK_NOTIFICATION()
+                RiskMessage.RANDOM_RISK_NOTIFICATION("2018-07-01", "eod")
         ));
     }
 }

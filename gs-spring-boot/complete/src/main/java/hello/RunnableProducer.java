@@ -30,17 +30,21 @@ public class RunnableProducer {
         //props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, CustomPartitioner.class.getName());
 
         org.apache.kafka.clients.producer.KafkaProducer<String, String> producer = new org.apache.kafka.clients.producer.KafkaProducer<String, String>(props);
-        while(true)
+        for(int i=0;i<Integer.parseInt(args[0]);i++) {
             try {
+                System.out.println(objectMapper.writeValueAsString(
+                        RiskMessage.RANDOM_RISK_NOTIFICATION(args[1], args[2])));
+
                 RecordMetadata result = producer.send(new ProducerRecord<String, String>(
-                        KafkaProducer.TOPIC_NAME, objectMapper.writeValueAsString(RiskMessage.RANDOM_RISK_NOTIFICATION())))
+                        KafkaProducer.TOPIC_NAME, objectMapper.writeValueAsString(
+                        RiskMessage.RANDOM_RISK_NOTIFICATION(args[1], args[2]))))
                         .get(60, TimeUnit.SECONDS);
-                System.out.println(""+result.partition()+result.offset());
                 Thread.sleep(1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+        }
+        System.out.println(args[0]+" messages published ");
     }
 
 }
