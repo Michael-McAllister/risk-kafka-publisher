@@ -129,8 +129,8 @@ public class RiskMessage implements Serializable{
         this.jobName = jobName;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public String getTimestamp() {
+        return "2015-09-12T00:46:58.771Z";
     }
 
     public void setTimestamp(LocalDateTime timestamp) {
