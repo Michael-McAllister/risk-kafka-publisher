@@ -42,9 +42,12 @@ public class RiskMessage implements Serializable{
     public static RiskMessage RANDOM_RISK_NOTIFICATION(String businessDate, String riskType) {
         return new RiskMessage(UUID.randomUUID().toString(),
                 LocalDate.now(), businessDate,
-                BigDecimal.valueOf(((int)Math.random() * 10 + 1) * 1000000),
-                riskType, "firmAccount",
-                "region"+(int)(Math.random()*10), "party", "cpty", "csa",
+                BigDecimal.valueOf((int)(Math.random() * 10 + 1) * 1000000),
+                riskType, "firmAccount"+(int)(Math.random()*200),
+                "region"+(int)(Math.random()*10),
+                "party"+(int)(Math.random()*15),
+                "cpty"+(int)(Math.random()*150),
+                "csa"+(int)(Math.random()*20),
                 "jobName"+(int)(Math.random()*10)
                 );
     }
