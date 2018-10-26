@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 public class KafkaProducer implements Runnable{
 
-    public static final String TOPIC_NAME = "test";
+    public static final String TOPIC_NAME = "risk";
 
     private long sleepTime = 5;
 
